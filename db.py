@@ -18,8 +18,8 @@ def create_Table(cursor,TAB):
            Restaurant_Hours TEXT,
            DriveThru_Hours TEXT,
            DeliveryOption TEXT,
-           CurrentlyOperating TEXT,
-          Menu_Items TEXT
+           CurrentlyOperating TEXT
+         
         );'''
     cursor.execute(ddl)
 

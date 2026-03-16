@@ -55,23 +55,10 @@ def parse_html(data):
         )
     parsed_data["CurrentlyOperating"] = json.dumps(operating_list)  # ← serialized
 
-    #Menu Data
-
-    menu_data = []
-    for item in tree.xpath('.//li[contains(@class,"ProductList-listItem")]'):
-        menu_item = {}
-        menu_item["Name"]        = item.xpath('string(.//span[contains(@class,"Product-titleText")])').strip()
-        menu_item["Description"] =  re.sub(r'\s+', ' ', item.xpath('string(.//div[contains(@class,"Product-text")])')).strip()
-        menu_item["URL"]         = item.xpath('string(.//a[contains(@class,"Product-link")]/@href)').strip()
-        menu_item["Image"]       = item.xpath('string(.//img[contains(@class,"Product-img")]/@src)').strip()
-        menu_data.append(menu_item)
-    parsed_data["Menu_Items"]= json.dumps(menu_data)    
-    
-
-    
+       
     try:
-        validated = Store(**parsed_data)   # ← ** unpacks dict as kwargs
-        return validated.model_dump()      # ← return outside try, after validation
+        validated = Store(**parsed_data)   
+        return validated.model_dump()      
     except ValidationError as e:
         print("Validation Error:", parse_html.__name__, e)
         return {} 

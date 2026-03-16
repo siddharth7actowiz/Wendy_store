@@ -15,14 +15,14 @@ class Store(BaseModel):
     DriveThru_Hours: str          
     DeliveryOption:  str          
     CurrentlyOperating: str          
-    Menu_Items:         str          
+           
 
     @field_validator('Pincode', mode='before')
     @classmethod
     def pincode_to_str(cls, v):
         return str(v).strip() if v else ""
 
-    @field_validator('Restaurant_Hours', 'DriveThru_Hours', 'DeliveryOption', 'CurrentlyOperating', 'Menu_Items', mode='before')
+    @field_validator('Restaurant_Hours', 'DriveThru_Hours', 'DeliveryOption', 'CurrentlyOperating', mode='before')
     @classmethod
     def serialize_to_json(cls, v):
         if isinstance(v, (dict, list)):
